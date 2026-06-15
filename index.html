@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Curve Test</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <h2>Interactive Curve Test</h2>
+
+  <p>This test plots:</p>
+
+  <p><b>y = a x² + b x + c</b></p>
+
+  <label>a:</label>
+  <input id="a" type="number" value="1" step="0.1">
+
+  <br><br>
+
+  <label>b:</label>
+  <input id="b" type="number" value="0" step="0.1">
+
+  <br><br>
+
+  <label>c:</label>
+  <input id="c" type="number" value="0" step="0.1">
+
+  <br><br>
+
+  <button onclick="drawCurve()">Draw Curve</button>
+
+  <div id="plot" style="width: 800px; height: 500px;"></div>
+
+  <script>
+    function drawCurve() {
+      const a = Number(document.getElementById("a").value);
+      const b = Number(document.getElementById("b").value);
+      const c = Number(document.getElementById("c").value);
+
+      let x = [];
+      let y = [];
+
+      for (let i = -100; i <= 100; i++) {
+        let xi = i / 10;
+        let yi = a * xi * xi + b * xi + c;
+
+        x.push(xi);
+        y.push(yi);
+      }
+
+      const trace = {
+        x: x,
+        y: y,
+        mode: "lines",
+        type: "scatter",
+        name: "y = ax² + bx + c"
+      };
+
+      const layout = {
+        title: "Interactive Curve",
+        xaxis: {
+          title: "x"
+        },
+        yaxis: {
+          title: "y"
+        }
+      };
+
+      Plotly.newPlot("plot", [trace], layout);
+    }
+
+    drawCurve();
+  </script>
+</body>
+</html>
